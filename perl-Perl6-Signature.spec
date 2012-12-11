@@ -1,23 +1,23 @@
 %define upstream_name    Perl6-Signature
 %define upstream_version 0.03
 
-Name:       perl-%{upstream_name}
-Version:    %perl_convert_version %{upstream_version}
-Release:    %mkrel 1
+Name:		perl-%{upstream_name}
+Version:	%perl_convert_version %{upstream_version}
+Release:	2
 
-Summary:    Parse, query, and pretty-print Perl 6 signatures
-License:    GPL+ or Artistic
-Group:      Development/Perl
-Url:        http://search.cpan.org/dist/%{upstream_name}
-Source0:    http://www.cpan.org/modules/by-module/Perl6/%{upstream_name}-%{upstream_version}.tar.gz
+Summary:	Parse, query, and pretty-print Perl 6 signatures
+License:	GPL+ or Artistic
+Group:		Development/Perl
+Url:		http://search.cpan.org/dist/%{upstream_name}
+Source0:	http://www.cpan.org/modules/by-module/Perl6/%{upstream_name}-%{upstream_version}.tar.gz
 
-BuildRequires: perl(Moose)
-BuildRequires: perl(Parse::RecDescent)
-BuildRequires: perl(Test::Exception)
-BuildRequires: perl(Test::More)
-BuildRequires: perl(Text::Balanced)
-BuildArch: noarch
-BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}
+BuildRequires:	perl-devel
+BuildRequires:	perl(Moose)
+BuildRequires:	perl(Parse::RecDescent)
+BuildRequires:	perl(Test::Exception)
+BuildRequires:	perl(Test::More)
+BuildRequires:	perl(Text::Balanced)
+BuildArch:	noarch
 
 %description
 _Alpha release - everything here is subject to change_
@@ -35,21 +35,30 @@ their canonical textual representation.
 %setup -q -n %{upstream_name}-%{upstream_version}
 
 %build
-%{__perl} Makefile.PL INSTALLDIRS=vendor
+perl Makefile.PL INSTALLDIRS=vendor
 %make
 
 %check
 make test
 
 %install
-rm -rf %buildroot
 %makeinstall_std
 
-%clean
-rm -rf %buildroot
-
 %files
-%defattr(-,root,root)
 %doc Changes README
 %{_mandir}/man3/*
-%perl_vendorlib/Perl6
+%{perl_vendorlib}/Perl6
+
+%changelog
+* Wed Jul 29 2009 Jérôme Quelin <jquelin@mandriva.org> 0.30.0-1mdv2010.0
++ Revision: 404291
+- rebuild using %%perl_convert_version
+
+* Thu Dec 04 2008 Guillaume Rousse <guillomovitch@mandriva.org> 0.03-1mdv2009.1
++ Revision: 310078
+- import perl-Perl6-Signature
+
+
+* Thu Dec 04 2008 cpan2dist 0.03-1mdv
+- initial mdv release, generated with cpan2dist
+
