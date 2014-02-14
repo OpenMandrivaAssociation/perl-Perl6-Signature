@@ -45,7 +45,7 @@ make test
 %makeinstall_std
 
 %files
-%doc Changes README
+%doc Changes 
 %{_mandir}/man3/*
 %{perl_vendorlib}/Perl6
 
